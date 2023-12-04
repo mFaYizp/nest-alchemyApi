@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from './user/user.module';
+import { WalletModule } from './wallet/wallet.module';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { UserModule } from './user/user.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_URL),
-    UserModule,
+    WalletModule,
   ],
   controllers: [AppController],
   providers: [AppService],
