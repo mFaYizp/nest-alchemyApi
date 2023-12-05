@@ -18,13 +18,10 @@ export class WalletService {
 
     this.alchemy = new Alchemy(configAlchemy);
   }
-  async getTransferTransaction({ fromAddress, toAddress }) {
+  async getTransferTransaction() {
     try {
-      console.log(fromAddress, toAddress);
-
-      const latestBlock = await this.alchemy.core.getAssetTransfers({
-        toAddress: toAddress,
-        fromAddress: fromAddress,
+      const response = await this.alchemy.core.getAssetTransfers({
+        fromBlock: 'latest',
         excludeZeroValue: true,
         category: [
           AssetTransfersCategory.ERC721,
@@ -36,9 +33,10 @@ export class WalletService {
         ],
         order: SortingOrder.DESCENDING,
         withMetadata: true,
+        maxCount: 15,
       });
-      console.log(latestBlock);
-      return latestBlock;
+
+      return response;
     } catch (error) {
       console.error('Error fetching latest block number:', error);
       throw error;
