@@ -18,6 +18,8 @@ export class WalletService {
 
     this.alchemy = new Alchemy(configAlchemy);
   }
+
+  //fetching all transfer-based-transactions
   async getTransferTransaction() {
     try {
       const response = await this.alchemy.core.getAssetTransfers({
@@ -38,8 +40,36 @@ export class WalletService {
 
       return response;
     } catch (error) {
-      console.error('Error fetching latest block number:', error);
+      console.error('Error fetching transfer transaction details:', error);
       throw error;
+    }
+  }
+
+  //  Token Endpoints
+
+  //metadata information
+  async getMetadata(token: string) {
+    try {
+      const response = await this.alchemy.core.getTokenMetadata(token);
+
+      return response;
+    } catch (error) {
+      console.error('Error fetching in token metadata info:', error);
+    }
+  }
+
+  //token balances
+  async getTokenBalance(token: string) {
+    try {
+      //ERC20 tokens
+      const response = await this.alchemy.core.getTokenBalances(token);
+
+      //NATIVE tokens
+      // const response = await this.alchemy.core.getBalance(token);
+
+      return response;
+    } catch (error) {
+      console.error('Error fetching in Token balances:', error);
     }
   }
 }
