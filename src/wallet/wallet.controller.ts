@@ -16,8 +16,8 @@ export class WalletController {
     }
   }
 
-  @Get('token/metadata/:addressId')
-  async getMetaInfo(@Param('addressId') token: string, @Res() res: Response) {
+  @Get('token/metadata/:address')
+  async getMetaInfo(@Param('address') token: string, @Res() res: Response) {
     try {
       const tokenInfo = await this.walletService.getMetadata(token);
       res.json({ message: 'success', tokenInfo });
@@ -26,11 +26,8 @@ export class WalletController {
     }
   }
 
-  @Get('token/balance/:addressId')
-  async getTokenBalance(
-    @Param('addressId') token: string,
-    @Res() res: Response,
-  ) {
+  @Get('token/balance/:address')
+  async getTokenBalance(@Param('address') token: string, @Res() res: Response) {
     try {
       const tokenBalance = await this.walletService.getTokenBalance(token);
       res.json({ message: 'Success', tokenBalance });
@@ -39,8 +36,8 @@ export class WalletController {
     }
   }
 
-  @Get('nft/:addressId')
-  async getNftAddress(@Param('addressId') token: string, @Res() res: Response) {
+  @Get('nft/:address')
+  async getNftAddress(@Param('address') token: string, @Res() res: Response) {
     try {
       const nftAddress = await this.walletService.getNtfsAddress(token);
 
