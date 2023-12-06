@@ -72,4 +72,23 @@ export class WalletService {
       console.error('Error fetching in Token balances:', error);
     }
   }
+
+  async getNtfsAddress(token: string) {
+    try {
+      const options = {
+        method: 'GET',
+        headers: { accept: 'application/json' },
+      };
+      const response = await fetch(
+        `https://eth-mainnet.g.alchemy.com/nft/v3/${process.env.ALCHEMY_API}/getNFTsForOwner?owner=${token}&withMetadata=true`,
+        options,
+      )
+        .then((res) => res.json())
+        .catch((error) => console.log(error));
+
+      return response;
+    } catch (error) {
+      console.error('Error fetching nfts:', error);
+    }
+  }
 }

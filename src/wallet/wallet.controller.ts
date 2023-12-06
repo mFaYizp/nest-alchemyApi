@@ -38,4 +38,15 @@ export class WalletController {
       console.log('fetching failed', error);
     }
   }
+
+  @Get('nft/:addressId')
+  async getNftAddress(@Param('addressId') token: string, @Res() res: Response) {
+    try {
+      const nftAddress = await this.walletService.getNtfsAddress(token);
+
+      res.json({ message: 'Success', nftAddress });
+    } catch (error) {
+      console.log('fetching failed', error);
+    }
+  }
 }
