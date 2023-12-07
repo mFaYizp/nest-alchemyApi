@@ -16,10 +16,11 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  //SIGN UP endpoint
   async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
-    const { name, email, password } = signUpDto;
+    const { name, email, password } = signUpDto; //Destructuring the data from the body
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10); //Hashing password(bcrypt)
 
     const user = await this.userModel.create({
       name,
@@ -27,26 +28,27 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const token = this.jwtService.sign({ id: user._id });
+    const token = this.jwtService.sign({ id: user._id }); //generating token
 
     return { token };
   }
 
+  //LOGIN endpoint
   async login(loginDto: LoginDto): Promise<{ token: string }> {
-    const { email, password } = loginDto;
+    const { email, password } = loginDto; //Destructuring the data from the body
 
-    const user = await this.userModel.findOne({ email });
+    const user = await this.userModel.findOne({ email }); //finding the user
 
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const isPasswordMatched = await bcrypt.compare(password, user.password);
+    const isPasswordMatched = await bcrypt.compare(password, user.password); //checking password is matched
     if (!isPasswordMatched) {
       throw new UnauthorizedException('Invalid password');
     }
 
-    const token = this.jwtService.sign({ id: user._id });
+    const token = this.jwtService.sign({ id: user._id }); //generating token
 
     return { token };
   }

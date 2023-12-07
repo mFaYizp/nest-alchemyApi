@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { WalletModule } from './wallet/wallet.module';
@@ -12,13 +10,11 @@ import { AuthModule } from './auth/auth.module';
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
-    }),
-    ThrottlerModule.forRoot([{ ttl: 60000, limit: 5 }]),
-    MongooseModule.forRoot(process.env.DB_URL),
+    }), //configuring env
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 5 }]), // Throttled and rate-limiting endpoints
+    MongooseModule.forRoot(process.env.DB_URL), //Connecting db
     WalletModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

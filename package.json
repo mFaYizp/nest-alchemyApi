@@ -29,7 +29,6 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/throttler": "^5.0.1",
     "alchemy-sdk": "^3.1.0",
-    "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.14.0",
     "ethers": "^6.9.0",

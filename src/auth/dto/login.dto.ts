@@ -1,5 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
+//login data types
 export class LoginDto {
   @IsNotEmpty()
   @IsEmail({}, { message: 'please enter correct email' })
